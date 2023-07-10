@@ -1,0 +1,116 @@
+theia@theia-akachijudith:/home/project$ mkdir myrepo
+theia@theia-akachijudith:/home/project$ cd myrepo
+theia@theia-akachijudith:/home/project/myrepo$ git init
+Initialized empty Git repository in /home/project/myrepo/.git/
+theia@theia-akachijudith:/home/project/myrepo$ ls -la .git
+total 40
+drwxr-sr-x 7 theia users 4096 Jul 10 04:43 .
+drwxr-sr-x 3 theia users 4096 Jul 10 04:43 ..
+drwxr-sr-x 2 theia users 4096 Jul 10 04:43 branches
+-rw-r--r-- 1 theia users   92 Jul 10 04:43 config
+-rw-r--r-- 1 theia users   73 Jul 10 04:43 description
+-rw-r--r-- 1 theia users   23 Jul 10 04:43 HEAD
+drwxr-sr-x 2 theia users 4096 Jul 10 04:43 hooks
+drwxr-sr-x 2 theia users 4096 Jul 10 04:43 info
+drwxr-sr-x 4 theia users 4096 Jul 10 04:43 objects
+drwxr-sr-x 4 theia users 4096 Jul 10 04:43 refs
+theia@theia-akachijudith:/home/project/myrepo$ touch newfile
+theia@theia-akachijudith:/home/project/myrepo$ git add newfile
+theia@theia-akachijudith:/home/project/myrepo$ git config --global user.email "you@example.com"
+theia@theia-akachijudith:/home/project/myrepo$ git config --global user.name "Your Name"
+theia@theia-akachijudith:/home/project/myrepo$ git commit -m "added newfile"
+[master (root-commit) 013e437] added newfile
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 newfile
+theia@theia-akachijudith:/home/project/myrepo$ git branch my1stbranch
+theia@theia-akachijudith:/home/project/myrepo$ git branch
+* master
+  my1stbranch
+theia@theia-akachijudith:/home/project/myrepo$ git checkout my1stbranch
+Switched to branch 'my1stbranch'
+theia@theia-akachijudith:/home/project/myrepo$ git branch
+  master
+* my1stbranch
+theia@theia-akachijudith:/home/project/myrepo$ git checkout -b my1stbranch
+fatal: A branch named 'my1stbranch' already exists.
+theia@theia-akachijudith:/home/project/myrepo$ echo 'Here is some text in my newfile.' >> newfile
+theia@theia-akachijudith:/home/project/myrepo$ cat newfile
+Here is some text in my newfile.
+theia@theia-akachijudith:/home/project/myrepo$ touch readme.md
+theia@theia-akachijudith:/home/project/myrepo$ git add readme.md
+theia@theia-akachijudith:/home/project/myrepo$ git status
+On branch my1stbranch
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   readme.md
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   newfile
+
+theia@theia-akachijudith:/home/project/myrepo$ git add *
+theia@theia-akachijudith:/home/project/myrepo$ git status
+On branch my1stbranch
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   newfile
+        new file:   readme.md
+
+theia@theia-akachijudith:/home/project/myrepo$ git commit -m "added readme.md modified newfile"
+[my1stbranch 1c2065e] added readme.md modified newfile
+ 2 files changed, 1 insertion(+)
+ create mode 100644 readme.md
+theia@theia-akachijudith:/home/project/myrepo$ git log
+commit 1c2065e6ab67f1c13cbcd9bf0a22a35b6d273eb4 (HEAD -> my1stbranch)
+Author: Your Name <you@example.com>
+Date:   Mon Jul 10 04:54:39 2023 -0400
+
+    added readme.md modified newfile
+
+commit 013e43753f46604684096d00c096a537d462534d (master)
+Author: Your Name <you@example.com>
+Date:   Mon Jul 10 04:47:03 2023 -0400
+theia@theia-akachijudith:/home/project/myrepo$ git revert HEAD --no-edit
+[my1stbranch 9003d34] Revert "added readme.md modified newfile"
+ Date: Mon Jul 10 04:56:45 2023 -0400
+ 2 files changed, 1 deletion(-)
+ delete mode 100644 readme.md
+theia@theia-akachijudith:/home/project/myrepo$ touch goodfile
+theia@theia-akachijudith:/home/project/myrepo$ git add goodfile
+theia@theia-akachijudith:/home/project/myrepo$ git commit -m "added goodfile"
+[my1stbranch bfc8c27] added goodfile
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 goodfile
+theia@theia-akachijudith:/home/project/myrepo$ git log
+commit bfc8c27b9471ec354524685665952a7717488e2b (HEAD -> my1stbranch)
+Author: Your Name <you@example.com>
+Date:   Mon Jul 10 04:57:16 2023 -0400
+
+    added goodfile
+
+commit 9003d343a18542093b3aa1110c310b4418bf3bf3
+Author: Your Name <you@example.com>
+Date:   Mon Jul 10 04:56:45 2023 -0400
+theia@theia-akachijudith:/home/project/myrepo$ git checkout master
+Switched to branch 'master'
+theia@theia-akachijudith:/home/project/myrepo$ git merge my1stbranch
+Updating 013e437..bfc8c27
+Fast-forward
+ goodfile | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 goodfile
+theia@theia-akachijudith:/home/project/myrepo$ git log
+commit bfc8c27b9471ec354524685665952a7717488e2b (HEAD -> master, my1stbranch)
+Author: Your Name <you@example.com>
+Date:   Mon Jul 10 04:57:16 2023 -0400
+
+    added goodfile
+
+commit 9003d343a18542093b3aa1110c310b4418bf3bf3
+Author: Your Name <you@example.com>
+Date:   Mon Jul 10 04:56:45 2023 -0400
+theia@theia-akachijudith:/home/project/myrepo$ git branch -d my1stbranch
